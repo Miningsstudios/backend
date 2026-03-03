@@ -42,8 +42,12 @@ app.post("/profiles/save", async (req, res) => {
 app.get("/get/profiles", async (req, res) => {
     if (req.headers["x-authpublic-key"] !== authkeypublic) return res.destroy();
 
-    const perfils = await Profile.find();
-    res.json(perfils);
+    try {
+        const perfils = await Profile.find().limit(10).sort('-criadoEm');
+        res.json(perfils);
+    } catch (err) {
+        res.status(500).send("Interal error");
+    }
 });
 
 const PORT = process.env.PORT || 3000;
