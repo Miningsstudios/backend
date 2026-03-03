@@ -1,10 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose'); 
+const cors = require('cors');
 const app = express();
 
 const authkeypublic = process.env.AUTHPUBLIC;
 const mongoURI = process.env.MONGO_URI;
 
+app.use(cors())
 app.use(express.json());
 
 mongoose.connect(mongoURI)
